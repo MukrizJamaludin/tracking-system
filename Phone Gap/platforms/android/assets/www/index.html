@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<!--
+    Licensed to the Apache Software Foundation (ASF) under one
+    or more contributor license agreements.  See the NOTICE file
+    distributed with this work for additional information
+    regarding copyright ownership.  The ASF licenses this file
+    to you under the Apache License, Version 2.0 (the
+    "License"); you may not use this file except in compliance
+    with the License.  You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+     KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations
+    under the License.
+-->
+<html>
+<head>
+  <title>Location Detector System</title>
+
+  <script type="text/javascript" charset="utf-8" src="cordova.js"></script>
+  <script type="text/javascript" charset="utf-8">
+  var x = document.getElementById("demo");
+  var datatest = showposition();
+
+function getLocation() {
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(showPosition, showError);
+    } else {
+        x.innerHTML = "Geolocation is not supported by this browser.";
+    }
+}
+
+function showPosition(position) {
+    var latlon = position.coords.latitude + "," + position.coords.longitude;
+
+    var img_url = "https://maps.googleapis.com/maps/api/staticmap?center="
+    +latlon+"&zoom=14&size=400x300&sensor=false&key=AIzaSyBu-916DdpKAjTmJNIgngS6HL_kDIKU0aU";
+    document.getElementById("mapholder").innerHTML = "<img src='"+img_url+"'>";
+}
+//To use this code on your website, get a free API key from Google.
+//Read more at: https://www.w3schools.com/graphics/google_maps_basic.asp
+
+function showError(error) {
+    switch(error.code) {
+        case error.PERMISSION_DENIED:
+            x.innerHTML = "User denied the request for Geolocation."
+            break;
+        case error.POSITION_UNAVAILABLE:
+            x.innerHTML = "Location information is unavailable."
+            break;
+        case error.TIMEOUT:
+            x.innerHTML = "The request to get user location timed out."
+            break;
+        case error.UNKNOWN_ERROR:
+            x.innerHTML = "An unknown error occurred."
+            break;
+    }
+}
+
+  // Wait for PhoneGap to load
+  //
+  // document.addEventListener("deviceready", onDeviceReady, false);
+
+  // PhoneGap is ready
+  //
+  function onDeviceReady() {
+      navigator.geolocation.getCurrentPosition(onSuccess, onError);
+  }
+
+  // onSuccess Geolocation
+  //
+  function onSuccess(position) {
+      var element = document.getElementById('geolocation');
+      element.innerHTML = 'Latitude: '           + position.coords.latitude              + '<br />' +
+                          'Longitude: '          + position.coords.longitude             + '<br />' +
+                          'Altitude: '           + position.coords.altitude              + '<br />' +
+                          'Accuracy: '           + position.coords.accuracy              + '<br />' +
+                          'Altitude Accuracy: '  + position.coords.altitudeAccuracy      + '<br />' +
+                          'Heading: '            + position.coords.heading               + '<br />' +
+                          'Speed: '              + position.coords.speed                 + '<br />' +
+                          'Timestamp: '          + new Date(position.timestamp)          + '<br />';
+  }
+
+  //Save data
+ function test1()
+ {
+   datatest ;
+
+ }
+
+  // onError Callback receives a [PositionError](PositionError/positionError.html) object
+  //
+  function onError(error) {
+      alert('code: '    + error.code    + '\n' +
+            'message: ' + error.message + '\n');
+  }
+
+
+  </script>
+</head>
+<body background="a.jpg">
+
+  <h1><center><font size="10">Position Locating Apps</font><center></h1>
+  <p><center><font size="6">Your Location<font/><center></p>
+  <center><font size="6"><button onclick="getLocation()">Map</button></font><center>
+  <div id="mapholder"></div>
+  <input type="button" onclick="onDeviceReady()" value="Details">
+  <p id="geolocation"><center>Finding geolocation...<center></p>
+  <input type="button" onclick="test1()" value="Save Details">
+
+</body>
+</html>
