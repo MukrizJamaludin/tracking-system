@@ -47,7 +47,7 @@ There will be 2 folders in this repository:
 1. Cordova : The Application Folder
 -- Cordova application can be build here (run 'cordova build android' here as stated on the second part of the installation part above)
 -- Please make sure to run node.js command prompt to use the npm
--- Please use 'cd "<path-to-this-folder>"' to execute npm command
+-- Please use 'cd "path-to-this-folder"' to execute npm command
 
 2. Website : The Web Service Folder
 -- Put this folder in the 'htdocs' folder in xampp to allow the access by using localhost
