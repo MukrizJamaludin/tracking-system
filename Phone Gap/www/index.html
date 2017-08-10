@@ -1,116 +1,76 @@
 <!DOCTYPE html>
-<!--
-    Licensed to the Apache Software Foundation (ASF) under one
-    or more contributor license agreements.  See the NOTICE file
-    distributed with this work for additional information
-    regarding copyright ownership.  The ASF licenses this file
-    to you under the Apache License, Version 2.0 (the
-    "License"); you may not use this file except in compliance
-    with the License.  You may obtain a copy of the License at
-
-    http://www.apache.org/licenses/LICENSE-2.0
-
-    Unless required by applicable law or agreed to in writing,
-    software distributed under the License is distributed on an
-    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
-     KIND, either express or implied.  See the License for the
-    specific language governing permissions and limitations
-    under the License.
--->
 <html>
+
 <head>
   <title>Location Detector System</title>
-
-  <script type="text/javascript" charset="utf-8" src="cordova.js"></script>
-  <script type="text/javascript" charset="utf-8">
-  var x = document.getElementById("demo");
-  var datatest = showposition();
-
-function getLocation() {
-    if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(showPosition, showError);
-    } else {
-        x.innerHTML = "Geolocation is not supported by this browser.";
-    }
-}
-
-function showPosition(position) {
-    var latlon = position.coords.latitude + "," + position.coords.longitude;
-
-    var img_url = "https://maps.googleapis.com/maps/api/staticmap?center="
-    +latlon+"&zoom=14&size=400x300&sensor=false&key=AIzaSyBu-916DdpKAjTmJNIgngS6HL_kDIKU0aU";
-    document.getElementById("mapholder").innerHTML = "<img src='"+img_url+"'>";
-}
-//To use this code on your website, get a free API key from Google.
-//Read more at: https://www.w3schools.com/graphics/google_maps_basic.asp
-
-function showError(error) {
-    switch(error.code) {
-        case error.PERMISSION_DENIED:
-            x.innerHTML = "User denied the request for Geolocation."
-            break;
-        case error.POSITION_UNAVAILABLE:
-            x.innerHTML = "Location information is unavailable."
-            break;
-        case error.TIMEOUT:
-            x.innerHTML = "The request to get user location timed out."
-            break;
-        case error.UNKNOWN_ERROR:
-            x.innerHTML = "An unknown error occurred."
-            break;
-    }
-}
-
-  // Wait for PhoneGap to load
-  //
-  // document.addEventListener("deviceready", onDeviceReady, false);
-
-  // PhoneGap is ready
-  //
-  function onDeviceReady() {
-      navigator.geolocation.getCurrentPosition(onSuccess, onError);
-  }
-
-  // onSuccess Geolocation
-  //
-  function onSuccess(position) {
-      var element = document.getElementById('geolocation');
-      element.innerHTML = 'Latitude: '           + position.coords.latitude              + '<br />' +
-                          'Longitude: '          + position.coords.longitude             + '<br />' +
-                          'Altitude: '           + position.coords.altitude              + '<br />' +
-                          'Accuracy: '           + position.coords.accuracy              + '<br />' +
-                          'Altitude Accuracy: '  + position.coords.altitudeAccuracy      + '<br />' +
-                          'Heading: '            + position.coords.heading               + '<br />' +
-                          'Speed: '              + position.coords.speed                 + '<br />' +
-                          'Timestamp: '          + new Date(position.timestamp)          + '<br />';
-  }
-
-  //Save data
- function test1()
- {
-   datatest ;
-
- }
-
-  // onError Callback receives a [PositionError](PositionError/positionError.html) object
-  //
-  function onError(error) {
-      alert('code: '    + error.code    + '\n' +
-            'message: ' + error.message + '\n');
-  }
-
-
-  </script>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <link rel="stylesheet" href="css/bootstrap.css">
+  <script src="js/jquery.js"></script>
+  <script src="js/bootstrap.js"></script>
 </head>
-<body background="a.jpg">
 
-  <h1><center><font size="10">Position Locating Apps</font><center></h1>
-  <p><center><font size="6">Your Location<font/><center></p>
-  <center><font size="6"><button onclick="getLocation()">Map</button></font><center>
-  <div id="mapholder"></div>
-  <input type="button" onclick="onDeviceReady()" value="Details">
-  <p id="geolocation"><center>Finding geolocation...<center></p>
-  <input type="button" onclick="test1()" value="Save Details">
-
+<body>
+  <nav class="navbar navbar-default">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <a class="navbar-brand" href="index.html">Position Locating Apps</a>
+      </div>
+    </div>
+  </nav>
+  <div class="container">
+    <div class="panel panel-default">
+      <div class="panel-heading">Control Panel</div>
+      <div class="panel-body">
+        <button type="button" onclick="getLocation()" class="btn btn-primary" style="width: 100%;">Check My Location</button>
+        <div id="display" class="container-fluid" style="display: none">
+          <hr>
+          <p id="details" style="text-align: center;"></p>
+          <button type="button" onclick="showPositionOnMap(long, lat)" class="btn btn-primary" style="width: 100%;">Show My Location On Maps</button>
+          <div id="maps"></div>
+        </div>
+      </div>
+    </div>
+  </div>
 </body>
+
+<script type="text/javascript" charset="utf-8">
+
+  var long, lat;
+
+  function showPositionOnMap(long, lat) {
+    var img_url = "https://maps.googleapis.com/maps/api/staticmap?center=" + lat + "," + long + "&zoom=14&size=400x300&sensor=false&key=AIzaSyBu-916DdpKAjTmJNIgngS6HL_kDIKU0aU";
+    document.getElementById("maps").innerHTML = "<hr><p style='text-align: center'>I'm at the middle of the image below!</p><img style='width: 100%' src='" + img_url + "'>";
+  }
+
+  function getLocation() {
+    navigator.geolocation.getCurrentPosition(onSuccess, onError);
+  }
+
+  function onSuccess(position) {
+    document.getElementById('display').style.display = "block";
+    document.getElementById('details').innerHTML = "Your location:<br>(" + position.coords.longitude + ", " + position.coords.latitude + ")<br>Last checked:<br>" + new Date(position.timestamp);
+    long = position.coords.longitude;
+    lat = position.coords.latitude;
+  }
+
+  function onError(error) {
+    switch (error.code) {
+      case error.PERMISSION_DENIED:
+        alert("User denied the request for Geolocation.");
+        break;
+      case error.POSITION_UNAVAILABLE:
+        alert("Location information is unavailable.");
+        break;
+      case error.TIMEOUT:
+        alert("The request to get user location timed out.");
+        break;
+      case error.UNKNOWN_ERROR:
+        alert("An unknown error occurred.");
+        break;
+      }
+  }
+</script>
+
 </html>
