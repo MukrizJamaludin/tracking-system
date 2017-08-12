@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 10, 2017 at 07:18 PM
+-- Generation Time: Aug 12, 2017 at 10:13 AM
 -- Server version: 10.1.25-MariaDB
 -- PHP Version: 7.1.7
 
@@ -31,15 +31,16 @@ SET time_zone = "+00:00";
 CREATE TABLE `user` (
   `id` text NOT NULL,
   `longtitude` text NOT NULL,
-  `latitude` text NOT NULL
+  `latitude` text NOT NULL,
+  `time` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `user`
 --
 
-INSERT INTO `user` (`id`, `longtitude`, `latitude`) VALUES
-('123', '101.71004119999999', '3.1967076999999997');
+INSERT INTO `user` (`id`, `longtitude`, `latitude`, `time`) VALUES
+('123', '101.4607348', '3.0652123', 'Sat Aug 12 2017 16:12:36 GMT+0800 (Malay Peninsula Standard Time)');
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
