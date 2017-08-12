@@ -20,7 +20,7 @@ Location Tracking System uses a number of open source projects to work properly:
 * Cordova
 * jQuery
 * Bootstrap
-* Google Map API
+* Google Map API - You can get your API key [here](https://developers.google.com/maps/documentation/javascript/get-api-key) 
 * XAMPP - Apache, mySQL
 
 ... and of course, this Location Tracking System is an open source project.
