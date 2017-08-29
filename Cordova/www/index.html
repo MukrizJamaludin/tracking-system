@@ -23,7 +23,7 @@
         <div class="panel panel-default">
             <div class="panel-heading">Set server address and folders</div>
             <div class="panel-body">
-                <input type="text" class="form-control" value="192.168.0.1/Websites/" id="address" style="text-align:center;" />
+                <input type="text" class="form-control" value="192.168.0.1/projects/Websites/" id="address" style="text-align:center;" />
             </div>
         </div>
         <div class="panel panel-default">
@@ -45,10 +45,6 @@
         <div class="panel panel-default">
             <div class="panel-heading">Control Panel</div>
             <div class="panel-body">
-                <div class="form-group">
-                    <label for="usr">Your ID:</label>
-                    <input type="text" class="form-control" value="123" id="id_me" style="text-align:center;" />
-                </div>
                 <div class="form-group">
                     <button type="button" onclick="getLocation()" class="btn btn-primary" style="width: 100%;">Check My Location</button>
                 </div>
@@ -106,7 +102,7 @@
         lat = position.coords.latitude;
         $.ajaxSetup({timeout: 1000});
         $.get("http://" + document.getElementById('address').value + "saveData.php", {
-                'id': document.getElementById('id_me').value,
+                'id': localStorage.getItem("id"),
                 'lo': long,
                 'la': lat,
                 'tme': time

@@ -2,8 +2,8 @@
 -- version 4.7.0
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1
--- Generation Time: Aug 12, 2017 at 10:13 AM
+-- Host: localhost
+-- Generation Time: Aug 29, 2017 at 04:54 PM
 -- Server version: 10.1.25-MariaDB
 -- PHP Version: 7.1.7
 
@@ -32,15 +32,17 @@ CREATE TABLE `user` (
   `id` text NOT NULL,
   `longtitude` text NOT NULL,
   `latitude` text NOT NULL,
-  `time` text NOT NULL
+  `time` text NOT NULL,
+  `password` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `user`
 --
 
-INSERT INTO `user` (`id`, `longtitude`, `latitude`, `time`) VALUES
-('123', '101.4607348', '3.0652123', 'Sat Aug 12 2017 16:12:36 GMT+0800 (Malay Peninsula Standard Time)');
+INSERT INTO `user` (`id`, `longtitude`, `latitude`, `time`, `password`) VALUES
+('admin@gmail.com', '101.4607348', '3.0652123', 'Sat Aug 12 2017 16:12:36 GMT+0800 (Malay Peninsula Standard Time)', 'admin'),
+('admin@gmail.com', '', '', '', 'aasd');
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
