@@ -2,138 +2,135 @@
 <html>
 
 <head>
-    <title>Location Detector System</title>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <link rel="stylesheet" href="css/bootstrap.css">
-    <script src="js/jquery.js"></script>
-    <script src="js/bootstrap.js"></script>
+  <title>Location Detector System</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <link rel="stylesheet" href="css/bootstrap.css">
+  <script src="js/jquery.js"></script>
+  <script src="js/bootstrap.js"></script>
 </head>
 
 <body>
-    <nav class="navbar navbar-default">
-        <div class="container-fluid">
-            <div class="navbar-header">
-                <a class="navbar-brand" href="index.html">Position Locating Apps</a>
-            </div>
-        </div>
-    </nav>
-    <div class="container">
-        <div class="panel panel-default">
-            <div class="panel-heading">Set server address and folders</div>
-            <div class="panel-body">
-                <input type="text" class="form-control" value="192.168.0.1/projects/Websites/" id="address" style="text-align:center;" />
-            </div>
-        </div>
-        <div class="panel panel-default">
-            <div class="panel-heading">Find your friends</div>
-            <div class="panel-body">
-                <div class="form-group">
-                    <label for="usr">Your friends ID:</label>
-                    <input type="text" class="form-control" value="123" id="id_friend" style="text-align:center;" />
-                </div>
-                <div class="form-group">
-                    <button type="button" onclick="getOtherUserLocation()" class="btn btn-primary" style="width: 100%;">Check My Friend's Location</button>
-                </div>
-                <div id="display_friends" class="container-fluid" style="display: none">
-                    <hr style="margin: 0 5px 5px 5px;">
-                    <p id="details_friends" style="text-align: center;"></p>
-                </div>
-            </div>
-        </div>
-        <div class="panel panel-default">
-            <div class="panel-heading">Control Panel</div>
-            <div class="panel-body">
-                <div class="form-group">
-                    <button type="button" onclick="getLocation()" class="btn btn-primary" style="width: 100%;">Check My Location</button>
-                </div>
-                <div id="display" class="container-fluid" style="display: none">
-                    <hr style="margin: 0 5px 5px 5px;">
-                    <p id="details" style="text-align: center;"></p>
-                    <button type="button" onclick="showPositionOnMap(long, lat)" class="btn btn-primary" style="width: 100%;">Show My Location On Maps</button>
-                    <div id="maps"></div>
-                </div>
-            </div>
-        </div>
+  <nav class="navbar navbar-default">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <a class="navbar-brand" href="index.html">Position Locating Apps</a>
+      </div>
     </div>
+  </nav>
+  <div class="container">
+    <div class="panel panel-default">
+      <div class="panel-heading">Find your friends</div>
+      <div class="panel-body">
+        <div class="form-group">
+          <label for="usr">Your friends ID:</label>
+          <input type="text" class="form-control" value="123" id="id_friend" style="text-align:center;" />
+        </div>
+        <div class="form-group">
+          <button type="button" onclick="getOtherUserLocation()" class="btn btn-primary" style="width: 100%;">Check My Friend's Location</button>
+        </div>
+        <div id="display_friends" class="container-fluid" style="display: none">
+          <hr style="margin: 0 5px 5px 5px;">
+          <p id="details_friends" style="text-align: center;"></p>
+        </div>
+      </div>
+    </div>
+    <div class="panel panel-default">
+      <div class="panel-heading">Control Panel</div>
+      <div class="panel-body">
+        <div class="form-group">
+          <button type="button" onclick="getLocation()" class="btn btn-primary" style="width: 100%;">Check My Location</button>
+        </div>
+        <div id="display" class="container-fluid" style="display: none">
+          <hr style="margin: 0 5px 5px 5px;">
+          <p id="details" style="text-align: center;"></p>
+          <button type="button" onclick="showPositionOnMap(long, lat)" class="btn btn-primary" style="width: 100%;">Show My Location On Maps</button>
+          <div id="maps"></div>
+        </div>
+      </div>
+    </div>
+  </div>
 </body>
 
 <script type="text/javascript" charset="utf-8">
-    var long, lat, time;
-    // you can get your own key at: https://developers.google.com/maps/documentation/javascript/get-api-key
-    var googleMapsAPIkey = "AIzaSyBu-916DdpKAjTmJNIgngS6HL_kDIKU0aU";
+  var long, lat, time;
+  // you can get your own key at: https://developers.google.com/maps/documentation/javascript/get-api-key
+  var googleMapsAPIkey = "AIzaSyBu-916DdpKAjTmJNIgngS6HL_kDIKU0aU";
 
-    function showPositionOnMap(long, lat) {
-        var img_url = "https://maps.googleapis.com/maps/api/staticmap?center=" + lat + "," + long + "&zoom=14&size=400x300&sensor=false&key=" + googleMapsAPIkey;
-        document.getElementById("maps").innerHTML = "<hr><p style='text-align: center'>I'm at the middle of the image below!</p><img style='width: 100%' src='" + img_url + "'>";
-    }
+  function showPositionOnMap(long, lat) {
+    var img_url = "https://maps.googleapis.com/maps/api/staticmap?center=" + lat + "," + long + "&zoom=14&size=400x300&sensor=false&key=" + googleMapsAPIkey;
+    document.getElementById("maps").innerHTML = "<hr><p style='text-align: center'>I'm at the middle of the image below!</p><img style='width: 100%' src='" + img_url + "'>";
+  }
 
-    function getLocation() {
-        navigator.geolocation.getCurrentPosition(onSuccess, onError);
-    }
+  function getLocation() {
+    navigator.geolocation.getCurrentPosition(onSuccess, onError);
+  }
 
-    function getOtherUserLocation() {
-        $.ajaxSetup({timeout: 1000});
-        $.get("http://" + document.getElementById('address').value + "loadData.php", {
-                'id': document.getElementById('id_friend').value
-            })
-            .done(function(data) {
-                if (data == "err [3]: user doesn't exist" || data == "err [4]: invalid parameter") {
-                    alert("User doesn't exist");
-                } else {
-                    document.getElementById('display_friends').style.display = "block";
-                    temp = data.split(';');
-                    loc = temp[0];
-                    tme = temp[1];
-                    document.getElementById('details_friends').innerHTML = "Your friend's location:<br>" + loc + "<br>Last updated on:<br>" + tme;
-                }
-            })
-            .fail(function(err, status) {
-               alert("Please make sure your server address and folders is correct.");
-            });
-    }
-
-    function onSuccess(position) {
-        time = new Date(position.timestamp)
-        document.getElementById('display').style.display = "block";
-        document.getElementById('details').innerHTML = "Your location:<br>(" + position.coords.longitude + ", " + position.coords.latitude + ")<br>Last checked:<br>" + time;
-        long = position.coords.longitude;
-        lat = position.coords.latitude;
-        $.ajaxSetup({timeout: 1000});
-        $.get("http://" + document.getElementById('address').value + "saveData.php", {
-                'id': localStorage.getItem("id"),
-                'lo': long,
-                'la': lat,
-                'tme': time
-            })
-            .done(function(data) {
-                alert("Data Loaded: " + data);
-            })
-            .fail(function(err, status) {
-               alert("Please make sure your server address and folders is correct.");
-            });
-    }
-
-    function onError(error) {
-        switch (error.code) {
-            case error.PERMISSION_DENIED:
-                alert("User denied the request for Geolocation.");
-                break;
-            case error.POSITION_UNAVAILABLE:
-                alert("Location information is unavailable.");
-                break;
-            case error.TIMEOUT:
-                alert("The request to get user location timed out.");
-                break;
-            case error.UNKNOWN_ERROR:
-                alert("An unknown error occurred.");
-                break;
+  function getOtherUserLocation() {
+    $.ajaxSetup({
+      timeout: 1000
+    });
+    $.get("http://" + localStorage.getItem("add") + "loadData.php", {
+        'id': document.getElementById('id_friend').value
+      })
+      .done(function(data) {
+        if (data == "err [3]: user doesn't exist" || data == "err [4]: invalid parameter") {
+          alert("User doesn't exist");
+        } else {
+          document.getElementById('display_friends').style.display = "block";
+          temp = data.split(';');
+          loc = temp[0];
+          tme = temp[1];
+          document.getElementById('details_friends').innerHTML = "Your friend's location:<br>" + loc + "<br>Last updated on:<br>" + tme;
         }
-    }
+      })
+      .fail(function(err, status) {
+        alert("Please make sure your server address and folders is correct.");
+      });
+  }
 
-    $(document).ready(
-        navigator.geolocation.getCurrentPosition(function() {}, function() {}));
+  function onSuccess(position) {
+    time = new Date(position.timestamp)
+    document.getElementById('display').style.display = "block";
+    document.getElementById('details').innerHTML = "Your location:<br>(" + position.coords.longitude + ", " + position.coords.latitude + ")<br>Last checked:<br>" + time;
+    long = position.coords.longitude;
+    lat = position.coords.latitude;
+    $.ajaxSetup({
+      timeout: 1000
+    });
+    $.get("http://" + localStorage.getItem("add") + "saveData.php", {
+        'id': localStorage.getItem("id"),
+        'lo': long,
+        'la': lat,
+        'tme': time
+      })
+      .done(function(data) {
+        alert("Data Loaded: " + data);
+      })
+      .fail(function(err, status) {
+        alert("Please make sure your server address and folders is correct.");
+      });
+  }
+
+  function onError(error) {
+    switch (error.code) {
+      case error.PERMISSION_DENIED:
+        alert("User denied the request for Geolocation.");
+        break;
+      case error.POSITION_UNAVAILABLE:
+        alert("Location information is unavailable.");
+        break;
+      case error.TIMEOUT:
+        alert("The request to get user location timed out.");
+        break;
+      case error.UNKNOWN_ERROR:
+        alert("An unknown error occurred.");
+        break;
+    }
+  }
+
+  $(document).ready(document.getElementById('address').innerHTML = localStorage.getItem("add"));
 </script>
 
 </html>

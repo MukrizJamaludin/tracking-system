@@ -23,7 +23,7 @@
     <div class="panel panel-default">
       <div class="panel-heading">Set server address and folders</div>
       <div class="panel-body">
-        <input type="text" class="form-control" value="192.168.0.1/projects/Websites/" id="address" style="text-align:center;" />
+        <input type="text" class="form-control" id="address" style="text-align:center;" />
       </div>
     </div>
     <div class="panel panel-default">
@@ -41,6 +41,8 @@
           <button type="button" onclick="signIn()" class="btn btn-primary" style="width: 100%;">Submit</button>
         </div>
       </div>
+    </div>
+    <div class="panel panel-default">
       <div class="panel-heading">Sign Up</div>
       <div class="panel-body">
         <div class="form-group">
@@ -64,13 +66,14 @@
 </body>
 <script type="text/javascript">
   function signIn() {
-    $.get("http://" + document.getElementById('address').value + "loadData.php", {
+    $.get("http://" + document.getElementById('address').value + "signIn.php", {
         'email': document.getElementById('in_email').value,
         'password': document.getElementById('in_password').value
       })
       .done(function(data) {
         if (data == "Valid!") {
-          localStorage.getItem("id", document.getElementById('in_email').value);
+          localStorage.setItem("id", document.getElementById('in_email').value);
+          localStorage.setItem("add", document.getElementById('address').value);
           window.location.href = "index.html";
         } else {
           alert("Failed!");
@@ -83,7 +86,7 @@
 
   function signUp() {
     if (document.getElementById('up_password').value == document.getElementById('up_confirm').value) {
-      $.get("http://" + document.getElementById('address').value + "loadData.php", {
+      $.get("http://" + document.getElementById('address').value + "signUp.php", {
           'email': document.getElementById('up_email').value,
           'password': document.getElementById('up_password').value
         })

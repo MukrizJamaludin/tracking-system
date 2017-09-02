@@ -1,5 +1,5 @@
 <?php
-Access-Control-Allow-Origin: *
+header('Access-Control-Allow-Origin: *');
 
 include 'settings.php';
 
